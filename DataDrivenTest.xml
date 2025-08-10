@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Open Mrs All Test Suite">
+    <test name="Open Mers Test" verbose="2" preserve-order="true">
+        <classes>
+            <class name="openmrs.demo.OpenMrsTestCases">
+                <methods>
+                    <include name="registerPatientTest" />
+
+                    <include name="deletePatientTest" />
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
