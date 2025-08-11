@@ -11,7 +11,7 @@ public class OpenMrsDataDrivenTestCases extends OpenMrsBaseTest {
     String screenshotPath;
 
     @Test(dataProvider = "DataDrivenTestData", priority = 0)
-    public void registerPatientTest(String name, String gender, String dateOfBirth, String address, String phoneNumber) {
+    public void registerPatientTest(String name, String gender, String dateOfBirth, String address, String phoneNumber, String relatives) {
         Assert.assertTrue(homePage.verifyModuleTile("Register a patient"), "Register a Patient tile is not displayed");
         screenshotPath = Utils.captureScreenshot();
         Reporter.log("<img src=\"" + screenshotPath + "\" />");
@@ -19,7 +19,7 @@ public class OpenMrsDataDrivenTestCases extends OpenMrsBaseTest {
         Assert.assertTrue(registrationPage.verifyModulePage("Register a patient"), "Register patient page is not displayed");
         screenshotPath = Utils.captureScreenshot();
         Reporter.log("<img src=\"" + screenshotPath + "\" />");
-        registrationPage.enterPatientDetails(name, gender, dateOfBirth, address, phoneNumber, "Parent,Test User Parent");
+        registrationPage.enterPatientDetails(name, gender, dateOfBirth, address, phoneNumber, relatives);
         Assert.assertTrue(registrationPage.verifyEnteredDetails(name, gender, dateOfBirth, phoneNumber), "Registered Details are showing incorrect");
         screenshotPath = Utils.captureScreenshot();
         Reporter.log("<img src=\"" + screenshotPath + "\" />");
