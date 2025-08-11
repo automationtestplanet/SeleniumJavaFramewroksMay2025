@@ -3,11 +3,12 @@
 <suite name="Open Mrs All Test Suite">
     <test name="Open Mers Test" verbose="2" preserve-order="true">
         <classes>
-            <class name="openmrs.demo.OpenMrsTestCases">
+            <class name="openmrs.demo.OpenMrsDataDrivenTestCases">
                 <methods>
-                    <include name="registerPatientTest" />
-
-                    <include name="deletePatientTest" />
+                    <include name="registerPatientTest"/>
+                    <include name="findPatientTest"/>
+                    <include name="activateVisitsAndAddAttachmentsTest"/>
+                    <include name="deletePatientTest"/>
                 </methods>
             </class>
         </classes>

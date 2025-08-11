@@ -22,7 +22,7 @@
                 <version>3.3.1</version>
                 <configuration>
                     <suiteXmlFiles>
-                        <suiteXmlFile>DataDrivenTest.xml</suiteXmlFile>
+                        <suiteXmlFile>HybridDrivenTest.xml</suiteXmlFile>
                     </suiteXmlFiles>
                     <argLine>--add-opens java.base/java.lang=ALL-UNNAMED
                         --add-opens java.base/java.util=ALL-UNNAMED

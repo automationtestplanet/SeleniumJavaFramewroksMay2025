@@ -9,9 +9,11 @@ import org.testng.annotations.*;
 import java.lang.reflect.Method;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 public class OpenMrsBaseTest {
 
+    static ExcelUtils excelUtils;
     WebDriver driver;
     LoginPage loginPage;
     HomePage homePage;
@@ -20,7 +22,6 @@ public class OpenMrsBaseTest {
     FindPatientPage findPatientPage;
     AttachmentsPage attachmentsPage;
     Utils utils;
-    static ExcelUtils excelUtils;
 
     @BeforeSuite(alwaysRun = true)
     public void beforeSuit() {
@@ -81,12 +82,23 @@ public class OpenMrsBaseTest {
     }
 
     @DataProvider(name = "DataDrivenTestData")
-    public Iterator<String[]> dataDrivenDataProvider(Method method){
-        String excelFilePath = System.getProperty("user.dir")+TestProperties.getProperty("data.driven.test.data.path");
+    public Iterator<String[]> dataDrivenDataProvider(Method method) {
+        String excelFilePath = System.getProperty("user.dir") + TestProperties.getProperty("data.driven.test.data.path");
         String sheetName = method.getName().trim();
-        List<String[]> listOfStrings = excelUtils.readDataDrivenTestDataFromExcel(excelFilePath,sheetName);;
+        List<String[]> listOfStrings = ExcelUtils.readDataDrivenTestDataFromExcel(excelFilePath, sheetName);
+        ;
+        Assert.assertNotNull(listOfStrings);
         return listOfStrings.iterator();
     }
 
-
+    @DataProvider(name = "HybridDrivenTestData")
+    public Iterator<Object[]> hybridDrivenDataProvider(Method method) {
+        String excelFilePath = System.getProperty("user.dir") + TestProperties.getProperty("hybrid.test.data.path");
+        String sheetName = "TestData";
+        String testCasseName = method.getName().trim();
+        ExcelUtils excelUtils = new ExcelUtils();
+        Iterator<Object[]> testData = excelUtils.readHybridDrivenTestDataFromExcel(excelFilePath, sheetName, testCasseName);
+        Assert.assertNotNull(testData);
+        return testData;
+    }
 }

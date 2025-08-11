@@ -6,12 +6,14 @@ import org.testng.Assert;
 import org.testng.Reporter;
 import org.testng.annotations.Test;
 
-public class OpenMrsTestCases extends OpenMrsBaseTest {
+import java.util.Map;
+
+public class OpenMrsHybridDrivenTestCases extends OpenMrsBaseTest {
 
     String screenshotPath;
 
-    @Test(dataProvider = "DataDrivenTestData")
-    public void registerPatientTest(String name, String gender, String dateOfBirth, String address, String phoneNumber) {
+    @Test(dataProvider = "HybridDrivenTestData",priority = 0)
+    public void registerPatientTest(Map<String, String> testData) {
         Assert.assertTrue(homePage.verifyModuleTile("Register a patient"), "Register a Patient tile is not displayed");
         screenshotPath = Utils.captureScreenshot();
         Reporter.log("<img src=\"" + screenshotPath + "\" />");
@@ -19,19 +21,19 @@ public class OpenMrsTestCases extends OpenMrsBaseTest {
         Assert.assertTrue(registrationPage.verifyModulePage("Register a patient"), "Register patient page is not displayed");
         screenshotPath = Utils.captureScreenshot();
         Reporter.log("<img src=\"" + screenshotPath + "\" />");
-        registrationPage.enterPatientDetails(name, gender, dateOfBirth, address, phoneNumber, "Parent,Test User Parent");
-        Assert.assertTrue(registrationPage.verifyEnteredDetails(name, gender, dateOfBirth, phoneNumber), "Registered Details are showing incorrect");
+        registrationPage.enterPatientDetails(testData.get("Name"), testData.get("Gender"), testData.get("DateOfBirth"), testData.get("Address"), testData.get("PhoneNumber"), "Parent,Test User Parent");
+        Assert.assertTrue(registrationPage.verifyEnteredDetails(testData.get("Name"), testData.get("Gender"), testData.get("DateOfBirth"), testData.get("PhoneNumber")), "Registered Details are showing incorrect");
         screenshotPath = Utils.captureScreenshot();
         Reporter.log("<img src=\"" + screenshotPath + "\" />");
         registrationPage.clickConfirmButton();
-        Assert.assertTrue(patientDetailsPage.verifyPatientDetails(name), "Patient Name is not matching");
+        Assert.assertTrue(patientDetailsPage.verifyPatientDetails(testData.get("Name")), "Patient Name is not matching");
         screenshotPath = Utils.captureScreenshot();
         Reporter.log("<img src=\"" + screenshotPath + "\" />");
         TestProperties.setProperty("patient.id", patientDetailsPage.getPatientId());
     }
 
-    @Test
-    public void findPatientTest() {
+    @Test(dataProvider = "HybridDrivenTestData",priority = 1)
+    public void findPatientTest(Map<String, String> testData) {
         Assert.assertTrue(homePage.verifyModuleTile("Find Patient Record"), "Find Patient Record tile ins not displayed");
         screenshotPath = Utils.captureScreenshot();
         Reporter.log("<img src=\"" + screenshotPath + "\" />");
@@ -39,20 +41,20 @@ public class OpenMrsTestCases extends OpenMrsBaseTest {
         Assert.assertTrue(registrationPage.verifyModulePage("Find Patient Record"), "Find Patient Record page is not displayed");
         screenshotPath = Utils.captureScreenshot();
         Reporter.log("<img src=\"" + screenshotPath + "\" />");
-        findPatientPage.searchPatient("Test User");
-        Assert.assertTrue(findPatientPage.verifySearchPatientRecord("Name", "Test User"), "Filtered record not matching");
+        findPatientPage.searchPatient(testData.get("Name"));
+        Assert.assertTrue(findPatientPage.verifySearchPatientRecord("Name", testData.get("Name")), "Filtered record not matching");
         screenshotPath = Utils.captureScreenshot();
         Reporter.log("<img src=\"" + screenshotPath + "\" />");
         findPatientPage.clickSearchPatientTableFirstRecord();
-        Assert.assertTrue(patientDetailsPage.verifyPatientDetails("Test, User"), "Patient Name is not matching");
+        Assert.assertTrue(patientDetailsPage.verifyPatientDetails(testData.get("Name")), "Patient Name is not matching");
         screenshotPath = Utils.captureScreenshot();
         Reporter.log("<img src=\"" + screenshotPath + "\" />");
     }
 
-    @Test
-    public void activateVisitsAndAddAttachmentsTest() {
+    @Test(dataProvider = "HybridDrivenTestData",priority = 2)
+    public void activateVisitsAndAddAttachmentsTest(Map<String, String> testData) {
         homePage.clickModule("Find Patient Record");
-        findPatientPage.searchPatient("Test User");
+        findPatientPage.searchPatient(testData.get("Name"));
         findPatientPage.clickSearchPatientTableFirstRecord();
         patientDetailsPage.startVisits();
         Assert.assertTrue(patientDetailsPage.verifyStartVisit(), "Start Visits failed");
@@ -62,20 +64,20 @@ public class OpenMrsTestCases extends OpenMrsBaseTest {
         Assert.assertTrue(attachmentsPage.verifyAttachmentsPage(), "Attachments Page is not displayed");
         screenshotPath = Utils.captureScreenshot();
         Reporter.log("<img src=\"" + screenshotPath + "\" />");
-        String uploadFilePath = System.getProperty("user.dir") + "\\src\\test\\resources\\UploadFiles\\UploadImage.png";
-        attachmentsPage.addAttachments(uploadFilePath, "TestCaption");
-        Assert.assertTrue(attachmentsPage.verifyUploadFileCaption("TestCaption"), "File Upload is not successful");
+        String uploadFilePath = System.getProperty("user.dir") + TestProperties.getProperty("upload.images.path") + testData.get("UploadFileName");
+        attachmentsPage.addAttachments(uploadFilePath, testData.get("Caption"));
+        Assert.assertTrue(attachmentsPage.verifyUploadFileCaption(testData.get("Caption")), "File Upload is not successful");
         screenshotPath = Utils.captureScreenshot();
         Reporter.log("<img src=\"" + screenshotPath + "\" />");
     }
 
-    @Test(dataProvider = "DataDrivenTestData")
-    public void deletePatientTest(String name, String deleteReason) {
+    @Test(dataProvider = "HybridDrivenTestData",priority = 3)
+    public void deletePatientTest(Map<String, String> testData) {
         homePage.clickModule("Find Patient Record");
-        findPatientPage.searchPatient(name);
+        findPatientPage.searchPatient(testData.get("Name"));
         findPatientPage.clickSearchPatientTableFirstRecord();
-        patientDetailsPage.deletePatient(deleteReason);
-        findPatientPage.searchPatient(name);
+        patientDetailsPage.deletePatient(testData.get("Reason"));
+        findPatientPage.searchPatient(testData.get("Name"));
         Assert.assertTrue(findPatientPage.verifyNoRecordsFoundMessage(), "Patient record is not deleted");
         screenshotPath = Utils.captureScreenshot();
         Reporter.log("<img src=\"" + screenshotPath + "\" />");

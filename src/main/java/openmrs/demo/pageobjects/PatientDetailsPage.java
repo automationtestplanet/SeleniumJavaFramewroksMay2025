@@ -107,8 +107,7 @@ public class PatientDetailsPage extends BasePage {
     }
 
     public boolean verifyPatientDetails(String name) {
-        String[] nameArr = name.split(",");
-        return getGivenName().contains(nameArr[0].trim()) && getFamilyName().contains(nameArr[1].trim());
+        return name.contains(getGivenName()) && name.contains(getFamilyName());
     }
 
     public void clickStartVisit() {
