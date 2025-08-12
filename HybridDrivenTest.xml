@@ -3,7 +3,7 @@
 <suite name="Open Mrs All Test Suite">
     <test name="Open Mers Test" verbose="2" preserve-order="true">
         <classes>
-            <class name="openmrs.demo.OpenMrsHybridDrivenTestCases">
+            <class name="openmrs.tdd.OpenMrsHybridDrivenTestCases">
                 <methods>
                     <include name="registerPatientTest"/>
                     <include name="findPatientTest"/>

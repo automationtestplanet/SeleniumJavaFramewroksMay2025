@@ -1,6 +1,6 @@
-package openmrs.demo;
+package openmrs.tdd;
 
-import openmrs.demo.pageobjects.*;
+import openmrs.tdd.pageobjects.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
@@ -9,7 +9,6 @@ import org.testng.annotations.*;
 import java.lang.reflect.Method;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 public class OpenMrsBaseTest {
 

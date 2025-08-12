@@ -1,4 +1,4 @@
-package openmrs.demo.pageobjects;
+package openmrs.tdd.pageobjects;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

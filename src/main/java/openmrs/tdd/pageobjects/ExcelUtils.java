@@ -1,4 +1,4 @@
-package openmrs.demo.pageobjects;
+package openmrs.tdd.pageobjects;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;

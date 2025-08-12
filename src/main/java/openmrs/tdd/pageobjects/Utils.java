@@ -1,4 +1,4 @@
-package openmrs.demo.pageobjects;
+package openmrs.tdd.pageobjects;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
@@ -11,7 +11,7 @@ import java.util.Date;
 
 public class Utils extends BasePage {
 
-    public static String screenshotsFolderPath = System.getProperty("user.dir") + "//target//Screenshots//";
+    public static String screenshotsFolderPath = System.getProperty("user.dir") + "//target//screenshots//";
 
     public Utils(WebDriver driver) {
         super(driver);

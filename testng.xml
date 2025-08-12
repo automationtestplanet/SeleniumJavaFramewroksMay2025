@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Open Mrs All Test Suite">
-    <test name="Open Mers Test" verbose="2" preserve-order="true">
+<suite name="All Test Suite">
+    <test verbose="2" preserve-order="true"
+          name="C:/JavaProjects/CoreJava_July2025/IntelliJ/SeleniumJavaFramewroksMay2025">
         <classes>
-            <class name="openmrs.demo.OpenMrsDataDrivenTestCases">
+            <class name="openmrs.tdd.OpenMrsDataDrivenTestCases">
                 <methods>
-                    <include name="registerPatientTest" />
-                    <include name="findPatientTest" />
-                    <include name="activateVisitsAndAddAttachmentsTest" />
-                    <include name="deletePatientTest" />
+                    <include name="registerPatientTest"/>
+                    <include name="findPatientTest"/>
+                    <include name="activateVisitsAndAddAttachmentsTest"/>
+                    <include name="deletePatientTest"/>
+                </methods>
+            </class>
+            <class name="openmrs.tdd.OpenMrsHybridDrivenTestCases">
+                <methods>
+                    <include name="registerPatientTest"/>
+                    <include name="findPatientTest"/>
+                    <include name="activateVisitsAndAddAttachmentsTest"/>
+                    <include name="deletePatientTest"/>
                 </methods>
             </class>
         </classes>

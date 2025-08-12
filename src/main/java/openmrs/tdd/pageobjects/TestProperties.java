@@ -1,4 +1,4 @@
-package openmrs.demo.pageobjects;
+package openmrs.tdd.pageobjects;
 
 import java.io.File;
 import java.io.FileInputStream;

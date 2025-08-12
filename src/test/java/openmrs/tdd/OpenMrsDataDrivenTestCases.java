@@ -1,7 +1,7 @@
-package openmrs.demo;
+package openmrs.tdd;
 
-import openmrs.demo.pageobjects.TestProperties;
-import openmrs.demo.pageobjects.Utils;
+import openmrs.tdd.pageobjects.TestProperties;
+import openmrs.tdd.pageobjects.Utils;
 import org.testng.Assert;
 import org.testng.Reporter;
 import org.testng.annotations.Test;
